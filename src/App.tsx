@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { ProfileConfig, WidgetKey } from './types'
 import { DEFAULT_CONFIG, SCRATCH_CONFIG, cloneConfig, DEFAULT_ORDER } from './lib/defaults'
+import { REPO_URL, REPO_API, formatCount } from './lib/site'
 import { generateReadme } from './lib/generate'
 import { buildWorkflows } from './lib/workflows'
 import { templateById } from './lib/templates'
@@ -20,6 +21,16 @@ export default function App() {
   const [tab, setTab] = useState<Tab>('preview')
   const [activeTpl, setActiveTpl] = useState<string>('')
   const [previewMode, setPreviewMode] = useState<'dark' | 'light'>('dark')
+  const [stars, setStars] = useState<number | null>(null)
+
+  useEffect(() => {
+    fetch(REPO_API)
+      .then((r) => r.json())
+      .then((d) => {
+        if (typeof d?.stargazers_count === 'number') setStars(d.stargazers_count)
+      })
+      .catch(() => {})
+  }, [])
 
   const gen = useMemo(() => generateReadme(config), [config])
   const workflows = useMemo(() => buildWorkflows(gen, config.options.blogFeed), [gen, config.options.blogFeed])
@@ -84,16 +95,18 @@ export default function App() {
             </button>
           )}
           <a
-            href="https://github.com"
+            href={REPO_URL}
             target="_blank"
             rel="noreferrer"
-            className="flex h-9 items-center gap-1.5 rounded-lg border border-amber-400/30 bg-amber-400/10 px-3 text-sm font-semibold text-amber-200 transition hover:border-amber-400/50 hover:bg-amber-400/20"
+            className="group flex h-9 items-center gap-1.5 rounded-lg border border-amber-400/30 bg-amber-400/10 pl-3 pr-2 text-sm font-semibold text-amber-200 transition hover:border-amber-400/50 hover:bg-amber-400/20"
           >
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="transition group-hover:scale-110">
               <path d="M12 2.5l2.95 5.98 6.6.96-4.77 4.65 1.13 6.56L12 17.98 6.09 21.6l1.13-6.56L2.45 9.44l6.6-.96L12 2.5z" />
             </svg>
-            <span className="hidden sm:inline">Star on GitHub</span>
-            <span className="sm:hidden">Star</span>
+            <span className="hidden sm:inline">Star</span>
+            <span className="rounded-md bg-amber-400/20 px-1.5 py-0.5 text-xs tabular-nums text-amber-100">
+              {stars === null ? '☆' : formatCount(stars)}
+            </span>
           </a>
         </div>
 
@@ -102,7 +115,7 @@ export default function App() {
 
       {view === 'gallery' ? (
         <div className="min-h-0 flex-1 overflow-y-auto">
-          <Gallery config={config} onPick={pickTemplate} activeTpl={activeTpl} onScratch={startScratch} onUsername={setUsername} />
+          <Gallery config={config} onPick={pickTemplate} activeTpl={activeTpl} onScratch={startScratch} onUsername={setUsername} stars={stars} />
         </div>
       ) : (
         <main className="flex min-h-0 flex-1 flex-col overflow-y-auto lg:flex-row lg:overflow-hidden">

@@ -6,6 +6,7 @@ import CardPreview from './CardPreview'
 import BorderGlow from './BorderGlow'
 import VariableProximity from './VariableProximity'
 import SideRays from './SideRays'
+import { REPO_URL, formatCount } from '../lib/site'
 
 const TAGS = ['all', 'popular', 'clean', 'professional', 'funky', 'animated', 'games', 'recruiter', 'data'] as const
 
@@ -39,12 +40,14 @@ export default function Gallery({
   activeTpl,
   onScratch,
   onUsername,
+  stars,
 }: {
   config: ProfileConfig
   onPick: (id: string) => void
   activeTpl: string
   onScratch: () => void
   onUsername: (v: string) => void
+  stars?: number | null
 }) {
   const [filter, setFilter] = useState<(typeof TAGS)[number]>('all')
   const heroRef = useRef<HTMLDivElement>(null)
@@ -218,17 +221,25 @@ export default function Gallery({
           It's free and open source. If it helped you craft a standout profile, drop a star on GitHub — it genuinely keeps the project going.
         </p>
         <a
-          href="https://github.com"
+          href={REPO_URL}
           target="_blank"
           rel="noreferrer"
-          className="mt-5 inline-flex items-center gap-2 rounded-xl border border-amber-400/30 bg-amber-400/10 px-5 py-2.5 text-sm font-semibold text-amber-200 transition hover:-translate-y-0.5 hover:border-amber-400/50 hover:bg-amber-400/20"
+          className="group mt-5 inline-flex items-center gap-2 rounded-xl border border-amber-400/30 bg-amber-400/10 px-5 py-2.5 text-sm font-semibold text-amber-200 transition hover:-translate-y-0.5 hover:border-amber-400/50 hover:bg-amber-400/20"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="transition group-hover:scale-110">
             <path d="M12 2.5l2.95 5.98 6.6.96-4.77 4.65 1.13 6.56L12 17.98 6.09 21.6l1.13-6.56L2.45 9.44l6.6-.96L12 2.5z" />
           </svg>
           Star on GitHub
+          {stars != null && (
+            <span className="rounded-md bg-amber-400/20 px-1.5 py-0.5 text-xs tabular-nums text-amber-100">{formatCount(stars)}</span>
+          )}
         </a>
-        <p className="mt-6 text-xs text-white/30">Made with care · ProfileForge</p>
+        <p className="mt-6 text-xs text-white/30">
+          Made with care ·{' '}
+          <a href={REPO_URL} target="_blank" rel="noreferrer" className="text-white/45 hover:text-white/70">
+            ProfileForge
+          </a>
+        </p>
       </footer>
       </div>
     </>

@@ -1,72 +1,99 @@
+<div align="center">
+
 # 🔨 ProfileForge
 
-A funky, fully-functional **GitHub profile README generator**. Pick a template, tweak everything in a live editor, copy the markdown to your `username/username` repo. Snake, Pac-Man, 3D contribution graphs, trophies, streaks, stat cards, typing banners, badges — all wired up.
+### The GitHub profile README generator that doesn't make every profile look the same.
 
-![ProfileForge](public/forge.svg)
+Pick a template, tweak it in a guided editor, drag your sections around, copy the markdown. Snake, Pac-Man, 3D contribution graphs, trophies, streaks, stat cards, animated typing, tech-stack icons — all wired up, all live-previewed, all theme-aware.
 
-## ✨ What it does
+<p align="center">
+  <a href="https://github.com/saiyam0211/ProfileForge/stargazers"><img src="https://img.shields.io/github/stars/saiyam0211/ProfileForge?style=for-the-badge&logo=github&color=FFDD00&logoColor=black&labelColor=0d1117" alt="Stars" /></a>
+  <a href="https://github.com/saiyam0211/ProfileForge/network/members"><img src="https://img.shields.io/github/forks/saiyam0211/ProfileForge?style=for-the-badge&logo=github&color=58a6ff&logoColor=white&labelColor=0d1117" alt="Forks" /></a>
+  <a href="https://github.com/saiyam0211/ProfileForge/issues"><img src="https://img.shields.io/github/issues/saiyam0211/ProfileForge?style=for-the-badge&color=7ee787&logoColor=white&labelColor=0d1117" alt="Issues" /></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/github/license/saiyam0211/ProfileForge?style=for-the-badge&color=d2a8ff&labelColor=0d1117" alt="License" /></a>
+  <img src="https://img.shields.io/badge/PRs-welcome-7ee787?style=for-the-badge&labelColor=0d1117" alt="PRs Welcome" />
+</p>
 
-- **18 ready-made templates** — Developer Pro, Neon Cyberpunk, Gamer, Arcade Mania, Data Scientist, OSS Maintainer, 3D Showcase, Everything Bagel, Terminal Hacker, Designer, Recruiter Ready, Streak Beast, Trophy Hunter, Content Creator, Aura Glow, Polyglot, Purple Reign, Minimalist. Each card shows the **real rendered README** scaled down (lazy-loaded on scroll).
-- **Build from scratch** — drag-and-drop section builder (dnd-kit): add/remove/reorder blocks with snappy animations; the order drives the generated README.
-- **Live WYSIWYG preview** — renders exactly as GitHub will (HTML-in-markdown, `<picture>` dark mode, real SVG endpoints fetched live).
-- **Full editor** — identity, typing lines, about bullets, 17 social platforms, 70+ tech skills, 29 themes, accent color, layout options, and per-section toggles.
-- **One-click export** — copy markdown or download `README.md`.
-- **GitHub Action generator** — Snake / Pac-Man / 3D / blog widgets can't be fetched live (the contribution grid isn't in the API and GitHub's Camo proxy caches hard), so ProfileForge emits the scheduled-workflow YAML that renders and commits those SVGs for you.
+<p align="center">
+  <b>⭐ If ProfileForge helped you, drop a star — it genuinely keeps the project going.</b>
+</p>
 
-## 🧩 Widgets supported
-
-| Widget | Source | Delivery |
-|---|---|---|
-| Typing banner | readme-typing-svg | live SVG |
-| Stats / Top languages | github-readme-stats | live SVG |
-| Streak | github-readme-streak-stats | live SVG |
-| Trophies | github-profile-trophy | live SVG |
-| Activity graph | github-readme-activity-graph | live SVG |
-| Visitor counter | komarev ghpvc | live SVG |
-| Tech badges / icons | shields.io + skillicons.dev | live SVG |
-| Dev quote | quotes-github-readme | live SVG |
-| Snake animation | Platane/snk | GitHub Action → `output` branch |
-| Pac-Man graph | abozanona/pacman-contribution-graph | GitHub Action → `output` branch |
-| 3D contribution graph | yoshi389111/github-profile-3d-contrib | GitHub Action → repo |
-| Latest blog posts | gautamkrishnar/blog-post-workflow | GitHub Action |
-
-## 🚀 Run locally
-
-```bash
-npm install
-npm run dev      # http://localhost:5173
-npm run build    # type-check + production build
-```
-
-## 🏗️ How it works
-
-GitHub sanitizes README markdown — no `<script>`, iframes, or CSS. The **only** dynamic channel is an `<img>` pointing at a service that returns `image/svg+xml`. ProfileForge builds those URLs from your config (`src/lib/widgets.ts`), composes the README (`src/lib/generate.ts`), and for anything that can't be served live, generates the scheduled GitHub Action workflow (`src/lib/workflows.ts`).
-
-## 📦 Stack
-
-Vite · React 18 · TypeScript · Tailwind CSS v4 · react-markdown (+ remark-gfm, rehype-raw).
-
-## 📁 Structure
-
-```
-src/
-  lib/
-    themes.ts       29 github-readme-stats themes + activity-graph mapping
-    skills.ts       70+ tech catalog (skillicons + shields)
-    socials.ts      17 social platforms
-    widgets.ts      SVG endpoint URL builders
-    generate.ts     config → README markdown
-    workflows.ts    config → GitHub Action YAML
-    templates.ts    18 templates
-    defaults.ts     base config
-  components/
-    Gallery.tsx     template picker
-    Editor.tsx      controls
-    Preview.tsx     live render
-    CodePanel.tsx   markdown export
-    WorkflowPanel.tsx  action export
-```
+</div>
 
 ---
 
-<sub>Generated SVGs are powered by their respective open-source projects — go star them. Snake & Pac-Man have no declared license; they're used via their published Actions, not by copying code.</sub>
+## ✨ Features
+
+- **18+ premium templates** — Developer Pro, Neon Cyberpunk, Gamer, Data Scientist, OSS Maintainer, 3D Showcase, Terminal Hacker, Designer, Minimalist and more. Each card shows a **live rendered preview** of a sample persona.
+- **Guided 7-step wizard** — Basics → Typing → About → Skills → Social → Widgets → Finish. Every feature is opt-in with a visual thumbnail and an explanation, so you always know what you're adding.
+- **Build from scratch** — start empty and add only the blocks you want.
+- **Live WYSIWYG preview** — renders exactly like GitHub will, with a **light/dark toggle**.
+- **Drag to reorder** — reorder sections, tech-stack icons, and stat cards right in the preview. Footer stays pinned.
+- **Every widget, wired up:**
+
+  | Category | Widgets |
+  |---|---|
+  | Header | Typing animation, intro, banner |
+  | Identity | About me (emoji / animated / minimal icons), tech stack (70+ skills), social badges (28 platforms, icon-only or labeled) |
+  | Stats | GitHub stats, streak, top languages, activity graph, trophies (pick categories) — side by side, 2 per row |
+  | Counters | Profile views, followers |
+  | Animations | 🐍 Snake, 👾 Pac-Man, 🧊 3D contribution graph |
+  | Extras | Spotify now-playing, latest blog posts, dev quote, Buy Me a Coffee |
+
+- **29 themes** + custom accent, alignment, dividers, per-section heading icons & titles.
+- **One-click export** — copy the markdown or download `README.md`. Snake / Pac-Man / 3D / Blog also emit the **GitHub Action workflow** files you need.
+
+## 🚀 Getting Started
+
+```bash
+# clone
+git clone https://github.com/saiyam0211/ProfileForge.git
+cd ProfileForge
+
+# install
+npm install
+
+# run dev server → http://localhost:5173
+npm run dev
+
+# production build
+npm run build
+```
+
+## 🧠 How it works
+
+GitHub sanitizes README markdown — no `<script>`, iframes, or CSS. The **only** dynamic channel is an `<img>` pointing at a service that returns `image/svg+xml`. ProfileForge builds those URLs from your config and composes the README. For things that can't be fetched live (the contribution grid isn't in GitHub's API), it generates the scheduled **GitHub Action** that renders and commits them.
+
+A small dev/preview proxy fetches stat-card SVGs server-side to detect rate-limit errors and show a proper empty state instead of a broken "Something went wrong" card.
+
+## 🛠️ Tech Stack
+
+`Vite` · `React 18` · `TypeScript` · `Tailwind CSS v4` · `dnd-kit` (drag & drop) · `react-markdown` (+ remark-gfm, rehype-raw) · `ogl` (WebGL rays) · `motion`
+
+Powered by these wonderful open-source SVG services — please star them too:
+[github-readme-stats](https://github.com/anuraghazra/github-readme-stats) ·
+[github-readme-streak-stats](https://github.com/DenverCoder1/github-readme-streak-stats) ·
+[github-profile-trophy](https://github.com/ryo-ma/github-profile-trophy) ·
+[Platane/snk](https://github.com/Platane/snk) (snake) ·
+[pacman-contribution-graph](https://github.com/abozanona/pacman-contribution-graph) ·
+[github-profile-3d-contrib](https://github.com/yoshi389111/github-profile-3d-contrib) ·
+[skillicons.dev](https://skillicons.dev) · [shields.io](https://shields.io) · [Iconify](https://iconify.design)
+
+## 🤝 Contributing
+
+Contributions, ideas, and new templates are welcome!
+
+1. Fork the repo
+2. Create a branch: `git checkout -b feat/my-template`
+3. Commit your changes
+4. Open a Pull Request
+
+New templates live in [`src/lib/templates.ts`](src/lib/templates.ts) — copy an existing entry, give it a distinct `demo` persona, theme, and widget mix.
+
+## 📄 License
+
+[MIT](./LICENSE) © [saiyam0211](https://github.com/saiyam0211)
+
+<div align="center">
+<sub>Built with care. If you ship a profile with it, tag the repo — I'd love to see it. ⭐</sub>
+</div>
