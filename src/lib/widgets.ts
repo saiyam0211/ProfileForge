@@ -112,20 +112,54 @@ export function starsBadgeUrl(c: ProfileConfig): string {
   return `https://img.shields.io/github/stars/${u(c)}?${p}`
 }
 
+// --- Snake palette variants (Platane/snk). `outputs` = the snk output specs the
+// workflow must generate; `light`/`dark` = committed filenames the README links. ---
+export interface SnakeVariant {
+  label: string
+  light: string
+  dark: string
+  outputs: string[]
+}
+export const SNAKE_VARIANTS: Record<string, SnakeVariant> = {
+  github: { label: 'GitHub Green', light: 'github-snake.svg', dark: 'github-snake-dark.svg', outputs: ['github-snake.svg', 'github-snake-dark.svg?palette=github-dark'] },
+  neon: { label: 'Neon Pink', light: 'snake-neon.svg', dark: 'snake-neon.svg', outputs: ['snake-neon.svg?color_snake=%23e5289e&color_dots=%23161b22,%23612a4b,%238a2d5a,%23c23a86,%23ff5cc8'] },
+  fire: { label: 'Fire', light: 'snake-fire.svg', dark: 'snake-fire.svg', outputs: ['snake-fire.svg?color_snake=%23ff7a00&color_dots=%23161b22,%235a1e00,%23a13a00,%23e25a00,%23ffae00'] },
+  ocean: { label: 'Ocean', light: 'snake-ocean.svg', dark: 'snake-ocean.svg', outputs: ['snake-ocean.svg?color_snake=%2300d4ff&color_dots=%23161b22,%23083a52,%230e6b8a,%2316a3c8,%2300e0ff'] },
+  matrix: { label: 'Matrix', light: 'snake-matrix.svg', dark: 'snake-matrix.svg', outputs: ['snake-matrix.svg?color_snake=%2300ff9c&color_dots=%23161b22,%23003b1f,%23006d32,%2300b34a,%2300ff9c'] },
+}
+
+// --- Pac-Man game variants (abozanona/pacman-contribution-graph `games` input) ---
+export interface PacmanVariant {
+  label: string
+  game: string
+}
+export const PACMAN_VARIANTS: Record<string, PacmanVariant> = {
+  pacman: { label: 'Pac-Man', game: 'pacman' },
+  breakout: { label: 'Breakout', game: 'breakout' },
+  galaga: { label: 'Galaga', game: 'galaga' },
+  'puzzle-bobble': { label: 'Puzzle Bobble', game: 'puzzle-bobble' },
+  bomberman: { label: 'Bomberman', game: 'bomberman' },
+  minesweeper: { label: 'Minesweeper', game: 'minesweeper' },
+}
+
 // Files produced by the GitHub Actions (output branch / repo path).
 export function snakeUrls(c: ProfileConfig) {
   const base = `https://raw.githubusercontent.com/${c.username}/${c.username}/output`
-  return { light: `${base}/github-snake.svg`, dark: `${base}/github-snake-dark.svg` }
+  const v = SNAKE_VARIANTS[c.options.snakeVariant] ?? SNAKE_VARIANTS.github
+  return { light: `${base}/${v.light}`, dark: `${base}/${v.dark}` }
 }
 
 export function pacmanUrls(c: ProfileConfig) {
   const base = `https://raw.githubusercontent.com/${c.username}/${c.username}/output`
-  return { light: `${base}/pacman-contribution-graph.svg`, dark: `${base}/pacman-contribution-graph-dark.svg` }
+  const v = PACMAN_VARIANTS[c.options.pacmanVariant] ?? PACMAN_VARIANTS.pacman
+  return { light: `${base}/${v.game}-contribution-graph.svg`, dark: `${base}/${v.game}-contribution-graph-dark.svg` }
 }
 
 export function contrib3dUrl(c: ProfileConfig): string {
-  // yoshi389111 commits to the default branch under profile-3d-contrib/
-  return `https://raw.githubusercontent.com/${c.username}/${c.username}/main/profile-3d-contrib/profile-night-rainbow.svg`
+  // yoshi389111 commits to the default branch under profile-3d-contrib/.
+  // the Action outputs several style variants; the user picks one.
+  const variant = c.options.contrib3dVariant || 'profile-night-rainbow'
+  return `https://raw.githubusercontent.com/${c.username}/${c.username}/main/profile-3d-contrib/${variant}.svg`
 }
 
 export function spotifyUrl(c: ProfileConfig): string {

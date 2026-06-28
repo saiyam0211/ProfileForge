@@ -1,3 +1,4 @@
+export const SITE_URL = 'https://profileforge-readme.vercel.app'
 export const REPO = 'saiyam0211/ProfileForge'
 export const REPO_URL = `https://github.com/${REPO}`
 export const REPO_API = `https://api.github.com/repos/${REPO}`

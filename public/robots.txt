@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://profileforge-readme.vercel.app/sitemap.xml

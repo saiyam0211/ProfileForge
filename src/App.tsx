@@ -33,7 +33,7 @@ export default function App() {
   }, [])
 
   const gen = useMemo(() => generateReadme(config), [config])
-  const workflows = useMemo(() => buildWorkflows(gen, config.options.blogFeed), [gen, config.options.blogFeed])
+  const workflows = useMemo(() => buildWorkflows(gen, config), [gen, config])
 
   function pickTemplate(id: string) {
     const tpl = templateById(id)

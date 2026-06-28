@@ -97,6 +97,11 @@ export interface Options {
   // stats cards side-by-side (max 2 per row)
   statsInline: boolean
   statsHide: string[] // stars,commits,prs,issues,contribs
+  // 3D contribution graph output variant (filename produced by the Action)
+  contrib3dVariant: string
+  // snake palette variant + pac-man game variant
+  snakeVariant: string
+  pacmanVariant: string
 }
 
 export interface ProfileConfig {

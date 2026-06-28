@@ -135,6 +135,9 @@ export const DEFAULT_CONFIG: ProfileConfig = {
     counterStyle: 'flat',
     statsInline: true,
     statsHide: [],
+    contrib3dVariant: 'profile-night-rainbow',
+    snakeVariant: 'github',
+    pacmanVariant: 'pacman',
   },
 }
 

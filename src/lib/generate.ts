@@ -192,7 +192,7 @@ const RENDERERS: Record<WidgetKey, (c: ProfileConfig) => string | null> = {
   support: (c) => (c.options.buymeacoffee ? [heading(c, 'support'), '', wrap(c.options.align, badge('Buy Me A Coffee', 'FFDD00', 'buymeacoffee', 'for-the-badge', `https://www.buymeacoffee.com/${c.options.buymeacoffee}`))].join('\n') : null),
   footer: (c) => {
     const u = c.username || 'your-username'
-    return wrap('center', `<sub>⭐️ From [${u}](https://github.com/${u}) · Generated with ProfileForge</sub>`)
+    return wrap('center', `<sub>⭐️ From [${u}](https://github.com/${u}) · Built with [ProfileForge](https://profileforge-readme.vercel.app/)</sub>`)
   },
 }
 

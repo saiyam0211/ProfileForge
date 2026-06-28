@@ -1,4 +1,6 @@
 import type { GenResult } from './generate'
+import type { ProfileConfig } from '../types'
+import { SNAKE_VARIANTS, PACMAN_VARIANTS } from './widgets'
 
 export interface WorkflowFile {
   path: string // where it goes in the repo
@@ -8,25 +10,25 @@ export interface WorkflowFile {
 
 // Snake + Pacman both render an SVG and push it to the `output` branch via
 // crazy-max/ghaction-github-pages — combined into one workflow.
-function snakePacman(needSnake: boolean, needPacman: boolean): WorkflowFile {
+function snakePacman(needSnake: boolean, needPacman: boolean, c: ProfileConfig): WorkflowFile {
   const steps: string[] = []
   if (needSnake) {
+    const sv = SNAKE_VARIANTS[c.options.snakeVariant] ?? SNAKE_VARIANTS.github
+    const outs = sv.outputs.map((o) => `            dist/${o}`).join('\n')
     steps.push(`      - name: Generate snake animation
         uses: Platane/snk/svg-only@v3
         with:
           github_user_name: \${{ github.repository_owner }}
           outputs: |
-            dist/github-snake.svg
-            dist/github-snake-dark.svg?palette=github-dark`)
+${outs}`)
   }
   if (needPacman) {
+    const pv = PACMAN_VARIANTS[c.options.pacmanVariant] ?? PACMAN_VARIANTS.pacman
     steps.push(`      - name: Generate pac-man graph
         uses: abozanona/pacman-contribution-graph@main
         with:
           github_user_name: \${{ github.repository_owner }}
-          outputs: |
-            dist/pacman-contribution-graph.svg
-            dist/pacman-contribution-graph-dark.svg`)
+          games: '${pv.game}'`)
   }
   const yaml = `name: Generate Contribution Animations
 
@@ -118,10 +120,10 @@ jobs:
   return { path: '.github/workflows/blog-posts.yml', title: 'Latest blog posts', yaml }
 }
 
-export function buildWorkflows(g: GenResult, blogFeed: string): WorkflowFile[] {
+export function buildWorkflows(g: GenResult, c: ProfileConfig): WorkflowFile[] {
   const files: WorkflowFile[] = []
-  if (g.needsSnake || g.needsPacman) files.push(snakePacman(g.needsSnake, g.needsPacman))
+  if (g.needsSnake || g.needsPacman) files.push(snakePacman(g.needsSnake, g.needsPacman, c))
   if (g.needs3d) files.push(contrib3d())
-  if (g.needsBlog) files.push(blog(blogFeed))
+  if (g.needsBlog) files.push(blog(c.options.blogFeed))
   return files
 }

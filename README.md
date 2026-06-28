@@ -7,6 +7,10 @@
 Pick a template, tweak it in a guided editor, drag your sections around, copy the markdown. Snake, Pac-Man, 3D contribution graphs, trophies, streaks, stat cards, animated typing, tech-stack icons — all wired up, all live-previewed, all theme-aware.
 
 <p align="center">
+  <a href="https://profileforge-readme.vercel.app/"><img src="https://img.shields.io/badge/🚀_Live_Demo-profileforge--readme.vercel.app-7ee787?style=for-the-badge&labelColor=0d1117" alt="Live Demo" /></a>
+</p>
+
+<p align="center">
   <a href="https://github.com/saiyam0211/ProfileForge/stargazers"><img src="https://img.shields.io/github/stars/saiyam0211/ProfileForge?style=for-the-badge&logo=github&color=FFDD00&logoColor=black&labelColor=0d1117" alt="Stars" /></a>
   <a href="https://github.com/saiyam0211/ProfileForge/network/members"><img src="https://img.shields.io/github/forks/saiyam0211/ProfileForge?style=for-the-badge&logo=github&color=58a6ff&logoColor=white&labelColor=0d1117" alt="Forks" /></a>
   <a href="https://github.com/saiyam0211/ProfileForge/issues"><img src="https://img.shields.io/github/issues/saiyam0211/ProfileForge?style=for-the-badge&color=7ee787&logoColor=white&labelColor=0d1117" alt="Issues" /></a>

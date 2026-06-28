@@ -5,6 +5,7 @@ import { SKILLS, SKILL_CATS } from '../lib/skills'
 import { SOCIALS } from '../lib/socials'
 import { templateById } from '../lib/templates'
 import { WIDGET_LABEL } from '../lib/widgetMeta'
+import { SNAKE_VARIANTS, PACMAN_VARIANTS } from '../lib/widgets'
 import { DEFAULT_HEADINGS } from '../lib/defaults'
 import { headingOf } from '../lib/generate'
 import WidgetThumb from './WidgetThumb'
@@ -37,6 +38,14 @@ const TROPHY_TITLES: Array<{ k: string; label: string }> = [
   { k: 'Repositories', label: 'Repositories' },
   { k: 'Experience', label: 'Experience' },
   { k: 'MultipleLang', label: 'Languages' },
+]
+const CONTRIB3D_VARIANTS: Array<{ v: string; label: string }> = [
+  { v: 'profile-night-rainbow', label: 'Night · Rainbow' },
+  { v: 'profile-night-green', label: 'Night · Green' },
+  { v: 'profile-night-view', label: 'Night · Blue' },
+  { v: 'profile-season-animate', label: 'Seasonal (animated)' },
+  { v: 'profile-green-animate', label: 'Green (animated)' },
+  { v: 'profile-gitblock', label: 'Git Block' },
 ]
 
 type Props = {
@@ -445,9 +454,46 @@ export default function Editor({ config, setConfig, activeTpl, onFinish }: Props
             <div>
               <div className="mb-2 text-[11px] uppercase tracking-wider text-white/35">🎮 Animations & games</div>
               <div className="space-y-2.5">
-                {fc('snake')}
-                {fc('pacman')}
-                {fc('contrib3d')}
+                {fc(
+                  'snake',
+                  <label className="block text-xs text-white/55">
+                    <span className="mb-1 block text-[11px] uppercase tracking-wide text-white/40">Palette</span>
+                    <select value={c.options.snakeVariant} onChange={(e) => setOpt({ snakeVariant: e.target.value })} className="w-full rounded-lg border border-white/10 bg-[#010409] px-2 py-1.5 outline-none">
+                      {Object.entries(SNAKE_VARIANTS).map(([k, v]) => (
+                        <option key={k} value={k}>{v.label}</option>
+                      ))}
+                    </select>
+                  </label>,
+                )}
+                {fc(
+                  'pacman',
+                  <label className="block text-xs text-white/55">
+                    <span className="mb-1 block text-[11px] uppercase tracking-wide text-white/40">Game</span>
+                    <select value={c.options.pacmanVariant} onChange={(e) => setOpt({ pacmanVariant: e.target.value })} className="w-full rounded-lg border border-white/10 bg-[#010409] px-2 py-1.5 outline-none">
+                      {Object.entries(PACMAN_VARIANTS).map(([k, v]) => (
+                        <option key={k} value={k}>{v.label}</option>
+                      ))}
+                    </select>
+                  </label>,
+                )}
+                {fc(
+                  'contrib3d',
+                  <label className="block text-xs text-white/55">
+                    <span className="mb-1 block text-[11px] uppercase tracking-wide text-white/40">Style variant</span>
+                    <select
+                      value={c.options.contrib3dVariant}
+                      onChange={(e) => setOpt({ contrib3dVariant: e.target.value })}
+                      className="w-full rounded-lg border border-white/10 bg-[#010409] px-2 py-1.5 outline-none"
+                    >
+                      {CONTRIB3D_VARIANTS.map((o) => (
+                        <option key={o.v} value={o.v}>{o.label}</option>
+                      ))}
+                    </select>
+                    <span className="mt-1.5 block text-[11px] leading-snug text-white/35">
+                      The 3D image is one SVG rendered by the Action (3D bars + radar + languages + stars/forks baked in). Pick a style — individual parts can't be toggled.
+                    </span>
+                  </label>,
+                )}
               </div>
             </div>
             <div>
